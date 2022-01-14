@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import shortid from 'shortid';
+import toast, { Toaster } from 'react-hot-toast';
 import useLocalStorage from '../hooks/useLocalStorage';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from 'components/ContactList/ContactList';
@@ -22,7 +23,7 @@ export default function App() {
         contact => contact.name.toLowerCase() === name.toLowerCase(),
       )
     ) {
-      alert(`${name} is already in contacts.`);
+      toast.error(`${name} is already in contacts.`);
     } else {
       setContacts(prevContacts => [...prevContacts, contact]);
     }
@@ -55,6 +56,18 @@ export default function App() {
           <h3>Your Phonebook is empty!</h3>
         )}
       </WorkingSpace>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        toastOptions={{
+          className: '',
+          duration: 1000,
+          style: {
+            background: '#363636',
+            color: '#fff',
+          },
+        }}
+      />
     </AppWrapper>
   );
 }
